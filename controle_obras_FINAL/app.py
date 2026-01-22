@@ -12,7 +12,7 @@ app.secret_key = 'controle-obras-2026'
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///obras.db'
+app.config['SQLALCHEMY_DATABASE_URI']app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(BASE_DIR, 'instance', 'obras.db') = 'sqlite:///obras.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = os.path.join(BASE_DIR, 'uploads')
 
