@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3 class="mb-4">Cadastro de Obras</h3>
+
+<form method="post" class="row mb-4">
+  <div class="col-md-10">
+    <input class="form-control" name="nome" placeholder="Nome da obra" required>
+  </div>
+  <div class="col-md-2">
+    <button class="btn btn-primary w-100">Cadastrar</button>
+  </div>
+</form>
+
+<table class="table table-bordered table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th>Obra</th>
+      <th width="220">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for o in obras %}
+    <tr>
+      <td>
+        <form method="post" action="/obras/editar/{{ o.id }}" class="d-flex">
+          <input class="form-control me-2" name="nome" value="{{ o.nome }}" required>
+          <button class="btn btn-warning btn-sm">Salvar</button>
+        </form>
+      </td>
+      <td>
+        <form method="post"
+              action="/obras/excluir/{{ o.id }}"
+              onsubmit="return confirm('Deseja realmente excluir esta obra?');">
+          <button class="btn btn-danger btn-sm">Excluir</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | Controle de Obras</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Fonte -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.65),
+        rgba(0,0,0,0.85)
+      ),
+      url("{{ url_for('static', filename='img/login-bg.jpg') }}") center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+
+    .login-card {
+      background: rgba(20,20,20,0.8);
+      backdrop-filter: blur(14px);
+      border-radius: 22px;
+      padding: 45px 40px;
+      width: 100%;
+      max-width: 420px;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 30px 70px rgba(0,0,0,.7);
+      animation: fadeUp 0.9s ease;
+    }
+
+    .login-title {
+      font-size: 1.9rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .login-subtitle {
+      font-size: 0.9rem;
+      opacity: 0.75;
+      margin-bottom: 30px;
+    }
+
+    .form-control {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      border-radius: 12px;
+      padding: 12px 15px;
+    }
+
+    .form-control:focus {
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      border-color: #0d6efd;
+      box-shadow: none;
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 14px;
+      border-radius: 50px;
+      font-weight: 600;
+      background: linear-gradient(135deg, #0d6efd, #0b5ed7);
+      border: none;
+      box-shadow: 0 15px 40px rgba(13,110,253,.5);
+      transition: all .3s ease;
+    }
+
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 55px rgba(13,110,253,.7);
+    }
+
+    .login-footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-card">
+
+    <div class="text-center mb-4">
+      <div class="badge bg-primary bg-opacity-25 text-primary px-3 py-2 rounded-pill mb-3">
+        🔐 Acesso ao Sistema
+      </div>
+      <div class="login-title">Controle de Obras</div>
+      <div class="login-subtitle">
+        Entre com suas credenciais para continuar
+      </div>
+    </div>
+
+    <form method="POST">
+      <div class="mb-3">
+        <label class="form-label">Usuário ou e-mail</label>
+        <input type="text" name="usuario" class="form-control" required>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">Senha</label>
+        <input type="password" name="senha" class="form-control" required>
+      </div>
+
+      <button type="submit" class="btn btn-login">
+        🔓 Entrar
+      </button>
+    </form>
+
+    <div class="login-footer">
+      © 2026 Controle de Obras
+    </div>
+
+  </div>
+
+</body>
+</html>
