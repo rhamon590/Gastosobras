@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, send_file, session
-from database import db
-from models import Usuario, Obra, Categoria, NotaFiscal
+from controle_obras_FINAL.database import db
+from controle_obras_FINAL.models import Usuario, Obra, Categoria, NotaFiscal
 from sqlalchemy import func
 import os
 import pandas as pd
