@@ -75,7 +75,7 @@ def landing():
 def home():
     return render_template('home.html')
 
-from models import Usuario
+from controle_obras_FINAL.models import Usuario
 
 @app.route('/usuarios', methods=['GET', 'POST'])
 def usuarios():
