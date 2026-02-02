@@ -20,16 +20,11 @@ db.init_app(app)
 
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
-def init_db():
+@app.route("/init-db")
+def init_db_route():
     with app.app_context():
         db.create_all()
-        if not Usuario.query.filter_by(usuario='admin').first():
-            u = Usuario(nome='Administrador', usuario='admin')
-            u.set_senha('1234')
-            db.session.add(u)
-            db.session.commit()
-
-
+    return "DB OK"
 
     # CRIA USUÁRIO ADMIN (1 VEZ)
     if not Usuario.query.filter_by(usuario='admin').first():
