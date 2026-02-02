@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+  .page-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+
+  .workspace-card {
+    border: none;
+    border-radius: 18px;
+    background: linear-gradient(180deg, #ffffff, #f8f9fa);
+    transition: all 0.35s ease;
+    height: 100%;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+  }
+
+  .workspace-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 45px rgba(0,0,0,0.12);
+  }
+
+  .workspace-icon {
+    font-size: 2.4rem;
+    margin-bottom: 15px;
+  }
+
+  .workspace-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+
+  .workspace-desc {
+    font-size: 0.85rem;
+    color: #6c757d;
+  }
+
+  a.card-link {
+    text-decoration: none;
+    color: inherit;
+  }
+</style>
+
+<div class="container-fluid px-4 mt-4">
+
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <h4 class="page-title">Área de Trabalho</h4>
+    <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill">
+      Sistema de Controle de Obras
+    </span>
+  </div>
+
+  <div class="row g-4">
+
+    <!-- Lançar NF -->
+    <div class="col-sm-6 col-md-3">
+      <a href="{{ url_for('nf') }}" class="card-link">
+        <div class="card workspace-card text-center p-4">
+          <div class="workspace-icon text-primary">➕</div>
+          <div class="workspace-title">Lançar NF</div>
+          <div class="workspace-desc mt-1">
+            Cadastrar nova nota fiscal
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="col-sm-6 col-md-3">
+      <a href="{{ url_for('dashboard') }}" class="card-link">
+        <div class="card workspace-card text-center p-4">
+          <div class="workspace-icon text-success">📊</div>
+          <div class="workspace-title">Dashboard</div>
+          <div class="workspace-desc mt-1">
+            Análises e relatórios
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Obras -->
+    <div class="col-sm-6 col-md-3">
+      <a href="{{ url_for('obras') }}" class="card-link">
+        <div class="card workspace-card text-center p-4">
+          <div class="workspace-icon text-warning">🏗️</div>
+          <div class="workspace-title">Obras</div>
+          <div class="workspace-desc mt-1">
+            Gerenciar obras
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Categorias -->
+    <div class="col-sm-6 col-md-3">
+      <a href="{{ url_for('categorias') }}" class="card-link">
+        <div class="card workspace-card text-center p-4">
+          <div class="workspace-icon text-danger">🏷️</div>
+          <div class="workspace-title">Categorias</div>
+          <div class="workspace-desc mt-1">
+            Gerenciar categorias
+          </div>
+        </div>
+      </a>
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock %}

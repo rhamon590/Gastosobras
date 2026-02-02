@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container-fluid px-4 mt-4">
+
+  <!-- HEADER + KPI GERAL -->
+  <div class="row mb-4">
+    <div class="col-lg-8">
+      <h4 class="fw-bold mb-1">Gastos por Categoria</h4>
+      <small class="text-muted">
+        Visão gerencial consolidada de despesas por obra e período
+      </small>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card shadow-sm border-0 bg-primary text-white h-100">
+        <div class="card-body">
+          <small class="text-uppercase opacity-75">
+            Total geral • Todas as obras
+          </small>
+          <h3 class="fw-bold mt-2">
+            {{ total_geral_obras | moeda_brl }}
+          </h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FILTROS -->
+  <div class="card shadow-sm border-0 mb-4">
+    <div class="card-body">
+      <form method="get" class="row g-3 align-items-end">
+
+        <div class="col-md-4">
+          <label class="form-label fw-semibold">Obra</label>
+          <select name="obra" class="form-select">
+            <option value="all">Todas as obras</option>
+            {% for o in obras %}
+              <option value="{{ o.id }}"
+                {% if obra_selecionada == o.id|string %}selected{% endif %}>
+                {{ o.nome }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-semibold">Mês de referência</label>
+          <input type="month" class="form-control" name="mes" value="{{ mes_selecionado }}">
+        </div>
+
+        <div class="col-md-4">
+          <button class="btn btn-primary w-100 fw-semibold">
+            <i class="bi bi-funnel-fill me-1"></i> Filtrar dados
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  {% if obra_selecionada and obra_selecionada != "all" %}
+
+  <!-- KPIs DA OBRA -->
+  <div class="row g-3 mb-4">
+
+    <div class="col-xl-3 col-md-6">
+      <div class="card shadow-sm border-start border-primary border-4 h-100">
+        <div class="card-body">
+          <small class="text-muted">Total da obra</small>
+          <h5 class="fw-bold text-primary mt-1">
+            {{ total_gasto | moeda_brl }}
+          </h5>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+      <div class="card shadow-sm border-start border-danger border-4 h-100">
+        <div class="card-body">
+          <small class="text-muted">Categoria com maior custo</small>
+          <h6 class="fw-bold text-danger mt-1">
+            {{ maior_categoria }}
+          </h6>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+      <div class="card shadow-sm border-start border-success border-4 h-100">
+        <div class="card-body">
+          <small class="text-muted">Notas fiscais</small>
+          <h5 class="fw-bold text-success mt-1">
+            {{ total_nfs }}
+          </h5>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+      <div class="card shadow-sm border-start border-secondary border-4 h-100">
+        <div class="card-body">
+          <small class="text-muted">Último lançamento</small>
+          <h6 class="fw-bold text-secondary mt-1">
+            {{ ultima_data }}
+          </h6>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  {% endif %}
+
+  {% if labels|length > 0 %}
+
+  <!-- GRÁFICO -->
+  <div class="card shadow-sm border-0">
+    <div class="card-header bg-white border-0">
+      <h6 class="fw-semibold mb-0">
+        Distribuição de gastos por categoria
+      </h6>
+    </div>
+    <div class="card-body">
+      <canvas id="grafico" height="120"></canvas>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+
+  <script>
+    Chart.register(ChartDataLabels);
+
+    new Chart(document.getElementById('grafico'), {
+      type: 'bar',
+      data: {
+        labels: {{ labels | safe }},
+        datasets: [{
+          data: {{ valores | safe }},
+          backgroundColor: [
+            '#0d6efd','#dc3545','#ffc107',
+            '#198754','#6f42c1','#fd7e14'
+          ],
+          borderRadius: 12
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { display: false },
+          datalabels: {
+            anchor: 'end',
+            align: 'top',
+            formatter: v => 'R$ ' + v.toLocaleString('pt-BR')
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              callback: v => 'R$ ' + v.toLocaleString('pt-BR')
+            }
+          }
+        }
+      }
+    });
+  </script>
+
+  {% else %}
+  <div class="alert alert-light border text-center">
+    Selecione uma <strong>obra</strong> e um <strong>mês</strong> para visualizar os dados.
+  </div>
+  {% endif %}
+
+</div>
+
+{% endblock %}

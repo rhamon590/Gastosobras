@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container-fluid px-4 mt-4">
+
+  <!-- CABEÇALHO -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h4 class="fw-bold mb-1">Lançamento de Nota Fiscal</h4>
+      <small class="text-muted">
+        Cadastro de despesas vinculadas às obras
+      </small>
+    </div>
+  </div>
+
+  <!-- FORMULÁRIO -->
+  <form method="post" enctype="multipart/form-data" class="card shadow-sm border-0">
+
+    <div class="card-body">
+
+      <!-- SEÇÃO: DADOS DA NOTA -->
+      <h6 class="fw-semibold text-primary mb-3">
+        Dados da Nota Fiscal
+      </h6>
+
+      <div class="row g-3 mb-4">
+
+        <div class="col-md-4">
+          <label class="form-label fw-semibold">Número da NF</label>
+          <input
+            type="text"
+            class="form-control"
+            name="numero"
+            placeholder="Ex: 123456"
+            required
+          >
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-semibold">Valor</label>
+          <input
+            type="text"
+            class="form-control"
+            name="valor"
+            placeholder="Ex: 1.234,56"
+            required
+          >
+          <small class="text-muted">Formato brasileiro</small>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-semibold">Data de emissão</label>
+          <input
+            type="date"
+            class="form-control"
+            name="data"
+            required
+          >
+        </div>
+
+      </div>
+
+      <!-- SEÇÃO: VINCULAÇÕES -->
+      <h6 class="fw-semibold text-primary mb-3">
+        Vinculação
+      </h6>
+
+      <div class="row g-3 mb-4">
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Obra</label>
+          <select class="form-select" name="obra" required>
+            <option value="" disabled selected>Selecione a obra</option>
+            {% for o in obras %}
+              <option value="{{ o.id }}">{{ o.nome }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Categoria</label>
+          <select class="form-select" name="categoria" required>
+            <option value="" disabled selected>Selecione a categoria</option>
+            {% for c in categorias %}
+              <option value="{{ c.id }}">{{ c.nome }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+      </div>
+
+      <!-- SEÇÃO: PAGAMENTO E ANEXO -->
+      <h6 class="fw-semibold text-primary mb-3">
+        Pagamento e Documento
+      </h6>
+
+      <div class="row g-3 mb-4">
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Forma de pagamento</label>
+          <input
+            type="text"
+            class="form-control"
+            name="pagamento"
+            placeholder="PIX, Boleto, Cartão..."
+          >
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Arquivo da Nota Fiscal</label>
+          <input
+            type="file"
+            class="form-control"
+            name="arquivo"
+            accept=".pdf,.jpg,.jpeg,.png"
+          >
+          <small class="text-muted">
+            PDF ou imagem (JPG, PNG)
+          </small>
+        </div>
+
+      </div>
+
+      <!-- SEÇÃO: OBSERVAÇÕES -->
+      <h6 class="fw-semibold text-primary mb-3">
+        Observações
+      </h6>
+
+      <div class="mb-4">
+        <textarea
+          class="form-control"
+          name="observacao"
+          rows="3"
+          placeholder="Informações adicionais (opcional)"
+        ></textarea>
+      </div>
+
+    </div>
+
+    <!-- RODAPÉ -->
+    <div class="card-footer bg-light border-0 d-flex justify-content-end">
+      <button type="submit" class="btn btn-success px-4 fw-semibold">
+        <i class="bi bi-save me-1"></i> Salvar Nota Fiscal
+      </button>
+    </div>
+
+  </form>
+
+</div>
+
+{% endblock %}
