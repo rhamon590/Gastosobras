@@ -66,6 +66,9 @@ def tratar_valor_brl(valor_raw):
 # ---------------------------------
 # ROTAS
 # ---------------------------------
+@app.route('/')
+def health():
+    return "OK", 200
 
 @app.route('/')
 def landing():
