@@ -66,6 +66,7 @@ def tratar_valor_brl(valor_raw):
 # ---------------------------------
 # ROTAS
 # ---------------------------------
+
 @app.route('/')
 def landing():
     return render_template('landing.html')
@@ -371,4 +372,9 @@ def logout():
 # START
 # ---------------------------------
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+   import os
+app.run(
+    host="0.0.0.0",
+    port=int(os.environ.get("PORT", 3000)),
+    debug=True
+)
