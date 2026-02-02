@@ -20,8 +20,15 @@ db.init_app(app)
 
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
-with app.app_context():
-    db.create_all()
+def init_db():
+    with app.app_context():
+        db.create_all()
+        if not Usuario.query.filter_by(usuario='admin').first():
+            u = Usuario(nome='Administrador', usuario='admin')
+            u.set_senha('1234')
+            db.session.add(u)
+            db.session.commit()
+
 
 
     # CRIA USUÁRIO ADMIN (1 VEZ)
@@ -376,9 +383,11 @@ def logout():
 # ---------------------------------
 if __name__ == "__main__":
     import os
+    init_db()  # 👈 AQUI
     app.run(
         host="0.0.0.0",
         port=int(os.environ.get("PORT", 3000)),
         debug=True
     )
+
 
